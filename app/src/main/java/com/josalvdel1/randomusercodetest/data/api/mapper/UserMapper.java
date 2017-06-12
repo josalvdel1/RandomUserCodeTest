@@ -22,7 +22,7 @@ public class UserMapper implements Mapper<User, ApiUser> {
     @Override
     public User apiToModel(ApiUser apiUser) {
 
-        User user = new User(apiUser.getId());
+        User user = new User(apiUser.getId().getIdName() + apiUser.getId().getValue());
 
         user.setGender(apiUser.getGender());
         user.setEmail(apiUser.getEmail());

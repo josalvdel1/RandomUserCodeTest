@@ -1,6 +1,7 @@
 package com.josalvdel1.randomusercodetest.data.api.datasource;
 
 import com.josalvdel1.randomusercodetest.data.api.UserApiService;
+import com.josalvdel1.randomusercodetest.data.api.entity.ApiResults;
 import com.josalvdel1.randomusercodetest.data.api.entity.ApiUser;
 import com.josalvdel1.randomusercodetest.data.api.exception.NetworkException;
 import com.josalvdel1.randomusercodetest.data.api.mapper.UserMapper;
@@ -26,11 +27,11 @@ public class UserNetworkDataSource {
     }
 
     public List<User> getUsers(int count) throws Exception {
-        Response<List<ApiUser>> response = userApiService.getUsers(count).execute();
+        Response<ApiResults> response = userApiService.getUsers(count).execute();
 
         if (response.isSuccessful()) {
             ListMapper<User, ApiUser> userListMapper = new ListMapper<>(userMapper);
-            return userListMapper.apiToModel(response.body());
+            return userListMapper.apiToModel(response.body().getResults());
         } else {
             throw new NetworkException();
         }

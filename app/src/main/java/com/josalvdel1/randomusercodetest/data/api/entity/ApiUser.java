@@ -7,9 +7,9 @@ import java.util.Date;
 
 public class ApiUser {
 
-    @SerializedName("sha1")
+    @SerializedName("id")
     @Expose
-    private String id;
+    private ApiUserId id;
 
     @SerializedName("gender")
     @Expose
@@ -39,7 +39,7 @@ public class ApiUser {
     @Expose
     private ApiUserPictures pictures;
 
-    public String getId() {
+    public ApiUserId getId() {
         return id;
     }
 
@@ -69,6 +69,24 @@ public class ApiUser {
 
     public ApiUserPictures getPictures() {
         return pictures;
+    }
+
+    public class ApiUserId{
+        @SerializedName("name")
+        @Expose
+        private String idName;
+
+        @SerializedName("value")
+        @Expose
+        private String value;
+
+        public String getIdName() {
+            return idName;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
     public class ApiUserName {

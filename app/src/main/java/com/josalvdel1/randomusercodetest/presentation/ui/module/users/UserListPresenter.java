@@ -22,16 +22,20 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
     }
 
     public void init() {
-        showLoading();
         attemptGetUsers();
     }
 
     private void attemptGetUsers() {
+        showLoading();
+        if (getView() != null) {
+            getView().disableRefreshing();
+        }
         getUsers.execute(new UseCase.Callback<List<User>>() {
             @Override
             public void onSuccess(List<User> result) {
                 hideLoading();
                 if (getView() != null) {
+                    getView().enableRefreshing();
                     if (result.size() > 0) {
                         getView().showUsers(result);
                     } else {
@@ -44,19 +48,33 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
             public void onError(Throwable error) {
                 hideLoading();
                 if (getView() != null) {
+                    getView().enableRefreshing();
                     getView().showGenericError();
                 }
             }
         }, 20);
     }
 
+    public void onUserClicked(User user) {
+    }
+
+    public void onRefreshUsers() {
+        getView().clearUsers();
+        attemptGetUsers();
+    }
+
     public interface View extends Presenter.View {
 
         void showUsers(List<User> users);
 
+        void clearUsers();
+
         void showEmptyView();
 
-        void showGenericError();
+        void enableRefreshing();
 
+        void disableRefreshing();
+
+        void showGenericError();
     }
 }

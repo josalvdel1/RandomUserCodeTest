@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +39,7 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         initUI();
         presenter.setView(this);
@@ -72,6 +74,9 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         toolbar.setNavigationOnClickListener(v -> finish());
+
+        srlLoading.setOnRefreshListener(() -> presenter.onRefreshUsers());
+
         initializeRecyclerView();
     }
 
@@ -88,6 +93,47 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
         rvUsers.setAdapter(userListAdapter);
     }
 
+    @Override
+    public void showUsers(List<User> users) {
+        userListAdapter.addAll(users);
+    }
+
+    @Override
+    public void clearUsers() {
+        userListAdapter.clear();
+    }
+
+    @Override
+    public void showLoading() {
+        srlLoading.setRefreshing(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        srlLoading.setRefreshing(false);
+    }
+
+    @Override
+    public void enableRefreshing() {
+        srlLoading.setEnabled(true);
+    }
+
+    @Override
+    public void disableRefreshing() {
+        srlLoading.setEnabled(false);
+    }
+
+    @Override
+    public void showEmptyView() {
+    }
+
+    @Override
+    public void showGenericError() {
+    }
+
+    public static Intent getIntent(Context context) {
+        return new Intent(context, UserListActivity.class);
+    }
 
     @Override
     public void initializeDagger() {
@@ -95,32 +141,5 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
         MyApplication.get(this)
                 .getAppComponent().activityComponent(new ActivityModule(this))
                 .inject(this);
-    }
-
-    @Override
-    public void showLoading() {
-    }
-
-    @Override
-    public void hideLoading() {
-    }
-
-    @Override
-    public void showUsers(List<User> users) {
-
-    }
-
-    @Override
-    public void showEmptyView() {
-
-    }
-
-    @Override
-    public void showGenericError() {
-
-    }
-
-    public static Intent getIntent(Context context) {
-        return new Intent(context, UserListActivity.class);
     }
 }
