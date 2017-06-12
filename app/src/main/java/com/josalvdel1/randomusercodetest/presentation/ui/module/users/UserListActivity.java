@@ -73,9 +73,8 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> finish());
 
-        srlLoading.setOnRefreshListener(() -> presenter.onRefreshUsers());
+        srlLoading.setEnabled(false);
 
         initializeRecyclerView();
     }
@@ -99,11 +98,6 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
     }
 
     @Override
-    public void clearUsers() {
-        userListAdapter.clear();
-    }
-
-    @Override
     public void showLoading() {
         srlLoading.setRefreshing(true);
     }
@@ -111,16 +105,6 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
     @Override
     public void hideLoading() {
         srlLoading.setRefreshing(false);
-    }
-
-    @Override
-    public void enableRefreshing() {
-        srlLoading.setEnabled(true);
-    }
-
-    @Override
-    public void disableRefreshing() {
-        srlLoading.setEnabled(false);
     }
 
     @Override

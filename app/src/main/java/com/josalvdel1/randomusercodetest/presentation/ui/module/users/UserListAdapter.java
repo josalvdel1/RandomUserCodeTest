@@ -90,8 +90,10 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ImageView ivUserThumbnail;
         @BindView(R.id.tv_user_list_title)
         TextView tvUserListTitle;
-        @BindView(R.id.tv_user_list_subtitle)
-        TextView tvUserListSubtitle;
+        @BindView(R.id.tv_user_list_subtitle_1)
+        TextView tvUserListSubtitle1;
+        @BindView(R.id.tv_user_list_subtitle_2)
+        TextView tvUserListSubtitle2;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -104,17 +106,25 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             imageLoader.loadWithCircularTransform(user.getThumbnail(),
                     ivUserThumbnail, ContextCompat.getDrawable(getContext(), R.drawable.ic_user_placeholder));
 
-            StringBuilder nameBuilder = new StringBuilder();
-            String userFullName = nameBuilder.append(StringUtils.getNotNullText(user.getFirstName()))
-                    .append(" ")
-                    .append(StringUtils.getNotNullText(user.getLastName()))
-                    .toString();
+            String userFullName = StringUtils.getNotNullText(user.getFirstName()) + " " +
+                    StringUtils.getNotNullText(user.getLastName());
             tvUserListTitle.setText(userFullName);
+
+            String userEmail = StringUtils.getNotNullText(user.getEmail());
+            tvUserListSubtitle1.setText(userEmail);
+
+            String userPhone = StringUtils.getNotNullText(user.getPhone());
+            tvUserListSubtitle2.setText(userPhone);
         }
 
-        @OnClick(R.id.ll_user_list_item_container)
+        @OnClick(R.id.iv_user_thumbnail)
         public void onUserItemClicked() {
             userListPresenter.onUserClicked(item);
+        }
+
+        @OnClick(R.id.ib_user_delete_forever)
+        public void onDeleteUserForeverClicked() {
+            userListPresenter.onDeleteUserForeverClicked(item);
         }
 
         private Context getContext() {

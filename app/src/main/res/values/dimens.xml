@@ -1,7 +1,8 @@
 <resources>
     <dimen name="content_default_padding">16dp</dimen>
     <dimen name="list_item_height">72dp</dimen>
-    <dimen name="action_icon_size">24dp</dimen>
+    <dimen name="action_icon_size">48dp</dimen>
+    <dimen name="action_icon_padding">8dp</dimen>
 
     <dimen name="user_thumbnail_size">40dp</dimen>
 </resources>
