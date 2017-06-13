@@ -8,6 +8,7 @@ import com.josalvdel1.randomusercodetest.domain.usecase.UseCase;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.DeleteUserForever;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.FetchMoreUsers;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.GetOldUsers;
+import com.josalvdel1.randomusercodetest.domain.usecase.user.GetUsersBySearch;
 import com.josalvdel1.randomusercodetest.presentation.ui.Presenter;
 
 import java.util.List;
@@ -23,14 +24,16 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
     private FetchMoreUsers fetchMoreUsers;
     private GetOldUsers getOldUsers;
     private DeleteUserForever deleteUserForever;
+    private GetUsersBySearch getUsersBySearch;
 
     @Inject
     public UserListPresenter(FetchMoreUsers fetchMoreUsers, GetOldUsers getOldUsers,
-                             DeleteUserForever deleteUserForever) {
+                             DeleteUserForever deleteUserForever, GetUsersBySearch getUsersBySearch) {
         super();
         this.fetchMoreUsers = fetchMoreUsers;
         this.getOldUsers = getOldUsers;
         this.deleteUserForever = deleteUserForever;
+        this.getUsersBySearch = getUsersBySearch;
     }
 
     public void init(UserListViewModel viewModel, boolean activityJustCreated) {
@@ -42,25 +45,30 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
 
     private void getOldUsers() {
         showLoading();
+        viewModel.setLoading(true);
         getOldUsers.execute(new UseCase.Callback<List<User>>() {
             @Override
             public void onSuccess(List<User> result) {
                 hideLoading();
+                viewModel.setLoading(false);
                 viewModel.updateUserList(result);
             }
 
             @Override
             public void onError(Throwable error) {
+                viewModel.setLoading(false);
                 hideLoading();
             }
         });
     }
 
     private void fetchMoreUsers() {
+        viewModel.setLoading(true);
         showLoading();
         fetchMoreUsers.execute(new UseCase.Callback<List<User>>() {
             @Override
             public void onSuccess(List<User> result) {
+                viewModel.setLoading(false);
                 hideLoading();
                 if (result.size() > 0) {
                     viewModel.updateUserList(result);
@@ -71,6 +79,7 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
 
             @Override
             public void onError(Throwable error) {
+                viewModel.setLoading(false);
                 hideLoading();
                 if (getView() != null) {
                     getView().showGenericError();
@@ -83,7 +92,11 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         deleteUserForever.execute(new UseCase.Callback<List<User>>() {
             @Override
             public void onSuccess(List<User> result) {
-                viewModel.updateUserList(result);
+                if (!viewModel.isSearching()) {
+                    viewModel.updateUserList(result);
+                } else {
+                    getUsersBySearch(viewModel.getSearchTerm());
+                }
             }
 
             @Override
@@ -101,10 +114,33 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
     }
 
     public void onQueryChange(String query) {
+        getUsersBySearch(query);
+        viewModel.setSearchTerm(query);
+    }
+
+    public void getUsersBySearch(String search) {
+        showLoading();
+        getUsersBySearch.execute(new UseCase.Callback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> result) {
+                hideLoading();
+                viewModel.updateUserList(result);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                hideLoading();
+            }
+        }, search);
     }
 
     public void onLoadMoreClicked() {
         fetchMoreUsers();
+    }
+
+    public void onSearchCloseClicked() {
+        viewModel.setSearchTerm(null);
+        getOldUsers();
     }
 
     public interface View extends Presenter.View {

@@ -24,6 +24,10 @@ public class UserDbDataSource {
         return userDao.getAllUsers();
     }
 
+    public List<User> getUsersBySearch(@NonNull String search) {
+        return userDao.getUsersBySearch(search);
+    }
+
     public void storeUsers(List<User> users) {
         userDao.insertAll(users);
     }

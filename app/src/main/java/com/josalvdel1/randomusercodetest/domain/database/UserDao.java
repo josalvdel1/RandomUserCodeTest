@@ -22,6 +22,12 @@ public interface UserDao {
     @Query("SELECT * FROM users WHERE NOT blackListed")
     List<User> getAllUsers();
 
+    @Query("SELECT * FROM users WHERE NOT blackListed AND ("
+            + "firstName LIKE " + ":search "
+            + "OR lastName LIKE " + ":search "
+            + "OR email LIKE " + ":search)")
+    List<User> getUsersBySearch(String search);
+
     @Update
     void updateUser(User user);
 }

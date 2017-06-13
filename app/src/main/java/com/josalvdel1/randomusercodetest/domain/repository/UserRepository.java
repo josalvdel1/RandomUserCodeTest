@@ -40,4 +40,8 @@ public class UserRepository {
     public User getUser(String userId) {
         return userDbDataSource.getUser(userId);
     }
+
+    public List<User> getUserBySearch(String search) {
+        return userDbDataSource.getUsersBySearch(search);
+    }
 }

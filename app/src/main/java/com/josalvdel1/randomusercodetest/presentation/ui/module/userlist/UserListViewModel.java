@@ -14,6 +14,9 @@ public class UserListViewModel extends AndroidViewModel {
 
     MutableLiveData<List<User>> userListLiveData;
 
+    private boolean isLoading;
+    private String searchTerm;
+
     public UserListViewModel(Application application) {
         super(application);
         ((MyApplication) application).getAppComponent().inject(this);
@@ -28,5 +31,25 @@ public class UserListViewModel extends AndroidViewModel {
 
     public void updateUserList(List<User> users) {
         userListLiveData.setValue(users);
+    }
+
+    public boolean isLoading() {
+        return isLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
+    }
+
+    public boolean isSearching() {
+        return searchTerm != null;
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
+
+    public String getSearchTerm() {
+        return searchTerm;
     }
 }

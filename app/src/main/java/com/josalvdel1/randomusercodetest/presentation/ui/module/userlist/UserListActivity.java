@@ -4,12 +4,16 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.josalvdel1.randomusercodetest.MyApplication;
 import com.josalvdel1.randomusercodetest.R;
@@ -52,6 +56,31 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
         initUI();
         presenter.setView(this);
         presenter.init(viewModel, savedInstanceState == null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_user_list, menu);
+
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                presenter.onQueryChange(query);
+                return true;
+            }
+        });
+        searchView.setOnCloseListener(() -> {
+            presenter.onSearchCloseClicked();
+            return false;
+        });
+        return true;
     }
 
     @Override
