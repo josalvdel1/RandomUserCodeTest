@@ -3,10 +3,11 @@ package com.josalvdel1.randomusercodetest.di.component;
 import com.josalvdel1.randomusercodetest.data.api.ApiModule;
 import com.josalvdel1.randomusercodetest.di.module.ActivityModule;
 import com.josalvdel1.randomusercodetest.di.module.AppModule;
+import com.josalvdel1.randomusercodetest.di.module.DomainModule;
 import com.josalvdel1.randomusercodetest.di.module.ExecutorModule;
 import com.josalvdel1.randomusercodetest.di.module.UIModule;
 import com.josalvdel1.randomusercodetest.presentation.ui.BaseActivity;
-import com.josalvdel1.randomusercodetest.presentation.ui.module.users.UserListActivity;
+import com.josalvdel1.randomusercodetest.presentation.ui.module.users.UserListViewModel;
 
 import javax.inject.Singleton;
 
@@ -16,6 +17,7 @@ import dagger.Component;
 @Component(
         modules = {
                 AppModule.class,
+                DomainModule.class,
                 ApiModule.class,
                 UIModule.class,
                 ExecutorModule.class,
@@ -27,4 +29,7 @@ public interface AppComponent {
 
     // Activities
     void inject(BaseActivity activity);
+
+    //ViewModels
+    void inject(UserListViewModel viewModel);
 }

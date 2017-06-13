@@ -1,5 +1,7 @@
 package com.josalvdel1.randomusercodetest.domain.entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 
@@ -10,8 +12,10 @@ import java.util.Date;
 import static com.josalvdel1.randomusercodetest.domain.entity.User.GENDER.FEMALE;
 import static com.josalvdel1.randomusercodetest.domain.entity.User.GENDER.MALE;
 
+@Entity(tableName = "users")
 public class User {
 
+    @PrimaryKey
     private String id;
     @GENDER
     private String gender;
@@ -42,126 +46,112 @@ public class User {
         return id;
     }
 
-    public User setId(String id) {
+    public void setId(String id) {
         this.id = id;
-        return this;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public User setGender(String gender) {
+    public void setGender(String gender) {
         this.gender = gender;
-        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public User setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public User setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
     public String getCity() {
         return city;
     }
 
-    public User setCity(String city) {
+    public void setCity(String city) {
         this.city = city;
-        return this;
     }
 
     public String getStreet() {
         return street;
     }
 
-    public User setStreet(String street) {
+    public void setStreet(String street) {
         this.street = street;
-        return this;
     }
 
     public String getPostalCode() {
         return postalCode;
     }
 
-    public User setPostalCode(String postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-        return this;
     }
 
     public String getState() {
         return state;
     }
 
-    public User setState(String state) {
+    public void setState(String state) {
         this.state = state;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public User setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getPhone() {
         return phone;
     }
 
-    public User setPhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
-        return this;
     }
 
     public Date getRegisteredDate() {
         return registeredDate;
     }
 
-    public User setRegisteredDate(Date registeredDate) {
+    public void setRegisteredDate(Date registeredDate) {
         this.registeredDate = registeredDate;
-        return this;
     }
 
     public String getLargePicture() {
         return largePicture;
     }
 
-    public User setLargePicture(String largePicture) {
+    public void setLargePicture(String largePicture) {
         this.largePicture = largePicture;
-        return this;
     }
 
     public String getMediumPicture() {
         return mediumPicture;
     }
 
-    public User setMediumPicture(String mediumPicture) {
+    public void setMediumPicture(String mediumPicture) {
         this.mediumPicture = mediumPicture;
-        return this;
     }
 
     public String getThumbnail() {
         return thumbnail;
     }
 
-    public User setThumbnail(String thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-        return this;
     }
 
     @Override

@@ -3,7 +3,8 @@ package com.josalvdel1.randomusercodetest.presentation.ui.module.users;
 import com.josalvdel1.randomusercodetest.di.scope.ActivityScope;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 import com.josalvdel1.randomusercodetest.domain.usecase.UseCase;
-import com.josalvdel1.randomusercodetest.domain.usecase.user.GetUsers;
+import com.josalvdel1.randomusercodetest.domain.usecase.user.FetchMoreUsers;
+import com.josalvdel1.randomusercodetest.domain.usecase.user.GetOldUsers;
 import com.josalvdel1.randomusercodetest.presentation.ui.Presenter;
 
 import java.util.List;
@@ -13,32 +14,52 @@ import javax.inject.Inject;
 @ActivityScope
 public class UserListPresenter extends Presenter<UserListPresenter.View> {
 
-    private GetUsers getUsers;
+    public static final int NEW_USERS_COUNT = 20;
+
+    private UserListViewModel viewModel;
+    private FetchMoreUsers fetchMoreUsers;
+    private GetOldUsers getOldUsers;
 
     @Inject
-    public UserListPresenter(GetUsers getUsers) {
+    public UserListPresenter(FetchMoreUsers fetchMoreUsers, GetOldUsers getOldUsers) {
         super();
-        this.getUsers = getUsers;
+        this.fetchMoreUsers = fetchMoreUsers;
+        this.getOldUsers = getOldUsers;
     }
 
-    public void init() {
-        attemptGetUsers();
-    }
-
-    private void attemptGetUsers() {
-        showLoading();
-        if (getView() != null) {
+    public void init(UserListViewModel viewModel, boolean activityJustCreated) {
+        this.viewModel = viewModel;
+        if (activityJustCreated) {
+            getOldUsers();
         }
-        getUsers.execute(new UseCase.Callback<List<User>>() {
+    }
+
+    public void getOldUsers() {
+        showLoading();
+        getOldUsers.execute(new UseCase.Callback<List<User>>() {
             @Override
             public void onSuccess(List<User> result) {
                 hideLoading();
-                if (getView() != null) {
-                    if (result.size() > 0) {
-                        getView().showUsers(result);
-                    } else {
-                        getView().showEmptyView();
-                    }
+                viewModel.updateUserList(result);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+                hideLoading();
+            }
+        });
+    }
+
+    private void fetchMoreUsers() {
+        showLoading();
+        fetchMoreUsers.execute(new UseCase.Callback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> result) {
+                hideLoading();
+                if (result.size() > 0) {
+                    viewModel.updateUserList(result);
+                } else {
+                    getView().showEmptyView();
                 }
             }
 
@@ -49,7 +70,7 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
                     getView().showGenericError();
                 }
             }
-        }, 20);
+        }, NEW_USERS_COUNT);
     }
 
     public void onUserClicked(User user) {
@@ -61,9 +82,11 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
     public void onQueryChange(String query) {
     }
 
-    public interface View extends Presenter.View {
+    public void onLoadMoreClicked() {
+        fetchMoreUsers();
+    }
 
-        void showUsers(List<User> users);
+    public interface View extends Presenter.View {
 
         void showEmptyView();
 

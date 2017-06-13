@@ -1,5 +1,7 @@
 package com.josalvdel1.randomusercodetest.presentation.ui;
 
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -7,7 +9,9 @@ import com.josalvdel1.randomusercodetest.MyApplication;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements LifecycleRegistryOwner {
+
+    LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +30,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         MyApplication.get(this)
                 .getAppComponent()
                 .inject(this);
+    }
+
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return lifecycleRegistry;
     }
 }

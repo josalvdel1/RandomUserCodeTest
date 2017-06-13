@@ -26,8 +26,8 @@ public class UserNetworkDataSource {
         this.userMapper = userMapper;
     }
 
-    public List<User> getUsers(int count) throws Exception {
-        Response<ApiResults> response = userApiService.getUsers(count).execute();
+    public List<User> fetchUsers(int itemCount) throws Exception {
+        Response<ApiResults> response = userApiService.getUsers(itemCount).execute();
 
         if (response.isSuccessful()) {
             ListMapper<User, ApiUser> userListMapper = new ListMapper<>(userMapper);

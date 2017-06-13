@@ -12,13 +12,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class GetUsers extends UseCase<List<User>> {
+/**
+ * Retrieves all users that were previously fetched
+ */
+public class GetOldUsers extends UseCase<List<User>> {
 
     private UserRepository userRepository;
 
     @Inject
-    public GetUsers(InteractorExecutor interactorExecutor, MainThread mainThread,
-                    UserRepository userRepository) {
+    public GetOldUsers(InteractorExecutor interactorExecutor, MainThread mainThread,
+                       UserRepository userRepository) {
         super(interactorExecutor, mainThread);
         this.userRepository = userRepository;
     }
@@ -26,10 +29,7 @@ public class GetUsers extends UseCase<List<User>> {
     @Override
     public void onExecute(Callback<List<User>> callback, Object... params) {
         try {
-            Integer count = (Integer) params[0];
-
-            //40 items by default
-            List<User> promoCodes = userRepository.getUsers(count != null ? count : 40);
+            List<User> promoCodes = userRepository.getOldUsers();
 
             notifySuccess(promoCodes, callback);
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package com.josalvdel1.randomusercodetest.presentation.ui.module.users;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class UserListActivity extends BaseActivity implements UserListPresenter.View {
 
@@ -36,14 +38,19 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
     @BindView(R.id.srl_loading)
     SwipeRefreshLayout srlLoading;
 
+    private UserListViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
+        viewModel = ViewModelProviders.of(this).get(UserListViewModel.class);
+        viewModel.bindDataOrigin().observe(this, this::showUsers);
+
         initUI();
         presenter.setView(this);
-        presenter.init();
+        presenter.init(viewModel, savedInstanceState == null);
     }
 
     @Override
@@ -73,6 +80,7 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         srlLoading.setEnabled(false);
 
@@ -92,9 +100,13 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
         rvUsers.setAdapter(userListAdapter);
     }
 
-    @Override
     public void showUsers(List<User> users) {
         userListAdapter.addAll(users);
+    }
+
+    @OnClick(R.id.fab_load_more)
+    public void onLoadMoreClicked() {
+        presenter.onLoadMoreClicked();
     }
 
     @Override

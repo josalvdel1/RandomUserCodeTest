@@ -68,10 +68,11 @@ android {
     }
 }
 
-def supportVersion = "25.3.0"
+def supportVersion = "25.3.1"
 def leakCanaryVersion = "1.5"
 def daggerVersion = "2.8"
 def butterKnifeVersion = "8.4.0"
+def archVersion = "1.0.0-alpha1"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -82,6 +83,12 @@ dependencies {
     compile "com.android.support:support-v4:$supportVersion"
     compile "com.android.support:design:$supportVersion"
     compile "com.android.support:percent:$supportVersion"
+
+    compile "android.arch.persistence.room:runtime:$archVersion"
+    compile "android.arch.lifecycle:runtime:$archVersion"
+    compile "android.arch.lifecycle:extensions:$archVersion"
+    apt "android.arch.persistence.room:compiler:$archVersion"
+    apt "android.arch.lifecycle:compiler:$archVersion"
 
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
