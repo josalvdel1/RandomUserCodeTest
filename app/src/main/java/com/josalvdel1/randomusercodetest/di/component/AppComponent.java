@@ -1,6 +1,6 @@
 package com.josalvdel1.randomusercodetest.di.component;
 
-import com.josalvdel1.randomusercodetest.data.api.ApiModule;
+import com.josalvdel1.randomusercodetest.api.ApiModule;
 import com.josalvdel1.randomusercodetest.di.module.ActivityModule;
 import com.josalvdel1.randomusercodetest.di.module.AppModule;
 import com.josalvdel1.randomusercodetest.di.module.DomainModule;

@@ -1,11 +1,11 @@
-package com.josalvdel1.randomusercodetest.data.api.datasource;
+package com.josalvdel1.randomusercodetest.api.datasource;
 
-import com.josalvdel1.randomusercodetest.data.api.UserApiService;
-import com.josalvdel1.randomusercodetest.data.api.entity.ApiResults;
-import com.josalvdel1.randomusercodetest.data.api.entity.ApiUser;
-import com.josalvdel1.randomusercodetest.data.api.exception.NetworkException;
-import com.josalvdel1.randomusercodetest.data.api.mapper.UserMapper;
-import com.josalvdel1.randomusercodetest.data.api.mapper.base.ListMapper;
+import com.josalvdel1.randomusercodetest.api.UserApiService;
+import com.josalvdel1.randomusercodetest.api.entity.ApiResults;
+import com.josalvdel1.randomusercodetest.api.entity.ApiUser;
+import com.josalvdel1.randomusercodetest.api.exception.NetworkException;
+import com.josalvdel1.randomusercodetest.api.mapper.UserMapper;
+import com.josalvdel1.randomusercodetest.api.mapper.base.ListMapper;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 
 import java.util.List;

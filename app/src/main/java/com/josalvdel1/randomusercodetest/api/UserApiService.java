@@ -1,7 +1,7 @@
-package com.josalvdel1.randomusercodetest.data.api;
+package com.josalvdel1.randomusercodetest.api;
 
 
-import com.josalvdel1.randomusercodetest.data.api.entity.ApiResults;
+import com.josalvdel1.randomusercodetest.api.entity.ApiResults;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

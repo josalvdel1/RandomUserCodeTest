@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.data.api.mapper.base;
+package com.josalvdel1.randomusercodetest.api.mapper.base;
 
 import java.util.ArrayList;
 import java.util.List;

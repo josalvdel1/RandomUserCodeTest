@@ -1,7 +1,7 @@
-package com.josalvdel1.randomusercodetest.data.api.mapper;
+package com.josalvdel1.randomusercodetest.api.mapper;
 
-import com.josalvdel1.randomusercodetest.data.api.entity.ApiUser;
-import com.josalvdel1.randomusercodetest.data.api.mapper.base.Mapper;
+import com.josalvdel1.randomusercodetest.api.entity.ApiUser;
+import com.josalvdel1.randomusercodetest.api.mapper.base.Mapper;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 
 import javax.inject.Inject;

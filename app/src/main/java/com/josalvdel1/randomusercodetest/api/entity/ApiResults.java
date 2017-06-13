@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.data.api.entity;
+package com.josalvdel1.randomusercodetest.api.entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

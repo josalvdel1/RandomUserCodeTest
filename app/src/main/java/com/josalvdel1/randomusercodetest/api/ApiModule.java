@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.data.api;
+package com.josalvdel1.randomusercodetest.api;
 
 import android.app.Application;
 
