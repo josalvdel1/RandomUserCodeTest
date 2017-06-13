@@ -31,7 +31,7 @@ public class ApiUser {
     @Expose
     private String phone;
 
-    @SerializedName("registeredDate")
+    @SerializedName("registered")
     @Expose
     private Date registeredDate;
 

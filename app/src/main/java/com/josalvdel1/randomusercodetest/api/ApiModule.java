@@ -26,7 +26,7 @@ import static com.josalvdel1.randomusercodetest.util.LogUtils.logE;
 @Module()
 public class ApiModule {
 
-    public static final String DATE_FORMAT_8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
+    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Singleton
     @Provides
@@ -87,7 +87,7 @@ public class ApiModule {
     public Gson provideGson() {
         return new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
-                .setDateFormat(DATE_FORMAT_8601)
+                .setDateFormat(DATE_FORMAT)
                 .create();
     }
 

@@ -17,6 +17,7 @@ import com.josalvdel1.randomusercodetest.R;
 import com.josalvdel1.randomusercodetest.di.module.ActivityModule;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 import com.josalvdel1.randomusercodetest.presentation.ui.BaseActivity;
+import com.josalvdel1.randomusercodetest.util.StringUtils;
 import com.josalvdel1.randomusercodetest.util.imageloader.ImageLoader;
 
 import javax.inject.Inject;
@@ -90,16 +91,23 @@ public class UserDetailActivity extends BaseActivity implements UserDetailPresen
     private void initUI() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     public void showUser(User user) {
-        toolbar.setTitle(user.getFullName());
-        imageLoader.loadWithCircularTransform(user.getLargePicture(), ivUserImage,
-                ContextCompat.getDrawable(this, R.drawable.ic_user_placeholder));
-        tietUserEmail.setText(user.getEmail());
-        tietUserGender.setText(user.getGender());
+        toolbar.setTitle(StringUtils.getNotNullText(user.getFullName()));
+        tietUserEmail.setText(StringUtils.getNotNullText(user.getEmail()));
+        tietUserGender.setText(StringUtils.getNotNullText(user.getGender()));
+
+        String largeUserPicture = user.getLargePicture();
+        if (largeUserPicture != null) {
+            imageLoader.loadWithCircularTransform(largeUserPicture, ivUserImage,
+                    ContextCompat.getDrawable(this, R.drawable.ic_user_placeholder));
+        }
+
         tietUserLocation.setText(String.format(getString(R.string.user_location_format),
                 user.getStreet(), user.getCity(), user.getState()));
+
         tietUserRegistered.setText(
                 getString(R.string.day_month_year_date_format, user.getRegisteredDate()));
     }
