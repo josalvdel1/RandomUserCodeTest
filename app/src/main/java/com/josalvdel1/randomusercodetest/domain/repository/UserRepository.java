@@ -1,6 +1,8 @@
 package com.josalvdel1.randomusercodetest.domain.repository;
 
-import com.josalvdel1.randomusercodetest.data.api.datasource.UserNetworkDataSource;
+import android.support.annotation.NonNull;
+
+import com.josalvdel1.randomusercodetest.api.datasource.UserNetworkDataSource;
 import com.josalvdel1.randomusercodetest.domain.datasource.UserDbDataSource;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 
@@ -29,5 +31,9 @@ public class UserRepository {
 
     public List<User> getOldUsers() {
         return userDbDataSource.getAllUsers();
+    }
+
+    public void deleteUserForever(@NonNull User user) {
+        userDbDataSource.addToBlackList(user);
     }
 }

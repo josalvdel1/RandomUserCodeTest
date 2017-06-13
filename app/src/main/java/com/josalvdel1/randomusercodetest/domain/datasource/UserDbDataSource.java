@@ -1,5 +1,7 @@
 package com.josalvdel1.randomusercodetest.domain.datasource;
 
+import android.support.annotation.NonNull;
+
 import com.josalvdel1.randomusercodetest.domain.database.UserDao;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 
@@ -24,5 +26,10 @@ public class UserDbDataSource {
 
     public void storeUsers(List<User> users) {
         userDao.insertAll(users);
+    }
+
+    public void addToBlackList(@NonNull User user) {
+        user.setBlackListed(true);
+        userDao.updateUser(user);
     }
 }

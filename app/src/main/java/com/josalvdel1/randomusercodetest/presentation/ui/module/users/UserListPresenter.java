@@ -1,8 +1,11 @@
 package com.josalvdel1.randomusercodetest.presentation.ui.module.users;
 
+import android.support.annotation.NonNull;
+
 import com.josalvdel1.randomusercodetest.di.scope.ActivityScope;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 import com.josalvdel1.randomusercodetest.domain.usecase.UseCase;
+import com.josalvdel1.randomusercodetest.domain.usecase.user.DeleteUserForever;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.FetchMoreUsers;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.GetOldUsers;
 import com.josalvdel1.randomusercodetest.presentation.ui.Presenter;
@@ -19,12 +22,15 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
     private UserListViewModel viewModel;
     private FetchMoreUsers fetchMoreUsers;
     private GetOldUsers getOldUsers;
+    private DeleteUserForever deleteUserForever;
 
     @Inject
-    public UserListPresenter(FetchMoreUsers fetchMoreUsers, GetOldUsers getOldUsers) {
+    public UserListPresenter(FetchMoreUsers fetchMoreUsers, GetOldUsers getOldUsers,
+                             DeleteUserForever deleteUserForever) {
         super();
         this.fetchMoreUsers = fetchMoreUsers;
         this.getOldUsers = getOldUsers;
+        this.deleteUserForever = deleteUserForever;
     }
 
     public void init(UserListViewModel viewModel, boolean activityJustCreated) {
@@ -34,7 +40,7 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         }
     }
 
-    public void getOldUsers() {
+    private void getOldUsers() {
         showLoading();
         getOldUsers.execute(new UseCase.Callback<List<User>>() {
             @Override
@@ -73,10 +79,24 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         }, NEW_USERS_COUNT);
     }
 
+    private void deleteUserForever(@NonNull User user) {
+        deleteUserForever.execute(new UseCase.Callback<List<User>>() {
+            @Override
+            public void onSuccess(List<User> result) {
+                viewModel.updateUserList(result);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+            }
+        }, user);
+    }
+
     public void onUserClicked(User user) {
     }
 
     public void onDeleteUserForeverClicked(User user) {
+        deleteUserForever(user);
     }
 
     public void onQueryChange(String query) {

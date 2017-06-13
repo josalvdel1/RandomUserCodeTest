@@ -31,6 +31,7 @@ public class User {
     private String largePicture;
     private String mediumPicture;
     private String thumbnail;
+    private boolean blackListed;
 
     /**
      * avoid object instantiation without required fields
@@ -152,6 +153,14 @@ public class User {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public void setBlackListed(boolean blackListed) {
+        this.blackListed = blackListed;
+    }
+
+    public boolean isBlackListed() {
+        return blackListed;
     }
 
     @Override
