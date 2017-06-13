@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.users;
+package com.josalvdel1.randomusercodetest.presentation.ui.module.userlist;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -119,7 +119,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         @OnClick(R.id.iv_user_thumbnail)
         public void onUserItemClicked() {
-            userListPresenter.onUserClicked(item);
+            userListPresenter.onUserClicked(item.getId());
         }
 
         @OnClick(R.id.ib_user_delete_forever)

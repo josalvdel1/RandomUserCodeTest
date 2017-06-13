@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.users;
+package com.josalvdel1.randomusercodetest.presentation.ui.module.userdetail;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -8,25 +8,23 @@ import android.arch.lifecycle.MutableLiveData;
 import com.josalvdel1.randomusercodetest.MyApplication;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 
-import java.util.List;
+public class UserDetailViewModel extends AndroidViewModel {
 
-public class UserListViewModel extends AndroidViewModel {
+    private MutableLiveData<User> userLiveData;
 
-    MutableLiveData<List<User>> userLiveData;
-
-    public UserListViewModel(Application application) {
+    public UserDetailViewModel(Application application) {
         super(application);
         ((MyApplication) application).getAppComponent().inject(this);
     }
 
-    public LiveData<List<User>> bindDataOrigin() {
+    public LiveData<User> bindDataOrigin() {
         if (userLiveData == null) {
             userLiveData = new MutableLiveData<>();
         }
         return userLiveData;
     }
 
-    public void updateUserList(List<User> users) {
-        userLiveData.setValue(users);
+    public void updateUser(User user) {
+        userLiveData.setValue(user);
     }
 }

@@ -8,30 +8,27 @@ import com.josalvdel1.randomusercodetest.domain.repository.UserRepository;
 import com.josalvdel1.randomusercodetest.domain.usecase.UseCase;
 import com.josalvdel1.randomusercodetest.util.LogUtils;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-/**
- * Retrieves all users that were previously fetched
- */
-public class GetOldUsers extends UseCase<List<User>> {
+public class GetUser extends UseCase<User> {
 
     private UserRepository userRepository;
 
     @Inject
-    public GetOldUsers(InteractorExecutor interactorExecutor, MainThread mainThread,
-                       UserRepository userRepository) {
+    public GetUser(InteractorExecutor interactorExecutor, MainThread mainThread,
+                   UserRepository userRepository) {
         super(interactorExecutor, mainThread);
         this.userRepository = userRepository;
     }
 
     @Override
-    public void onExecute(Callback<List<User>> callback, Object... params) {
+    public void onExecute(Callback<User> callback, Object... params) {
         try {
-            List<User> users = userRepository.getOldUsers();
+            String userId = (String) params[0];
 
-            notifySuccess(users, callback);
+            User user = userRepository.getUser(userId);
+
+            notifySuccess(user, callback);
         } catch (Exception e) {
             notifyError(e, callback);
             LogUtils.logE("GetUsers", e.getMessage());

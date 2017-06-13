@@ -36,4 +36,8 @@ public class UserRepository {
     public void deleteUserForever(@NonNull User user) {
         userDbDataSource.addToBlackList(user);
     }
+
+    public User getUser(String userId) {
+        return userDbDataSource.getUser(userId);
+    }
 }

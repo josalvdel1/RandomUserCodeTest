@@ -1,5 +1,16 @@
 <resources>
     <string name="app_name">RandomUserCodeTest</string>
+
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
+
+    <!-- User -->
+    <string name="user_detail_gender_label">Gender</string>
+    <string name="user_detail_email_label">Email</string>
+    <string name="user_detail_location_label">Location</string>
+    <string name="user_detail_registered_label">User since</string>
+    <string name="user_location_format">%1$s, %2$s, %3$s</string>
+
+    <!-- Date -->
+    <string name="day_month_year_date_format">%1$tb %1$td, %1$tY</string>
 </resources>

@@ -2,7 +2,8 @@ package com.josalvdel1.randomusercodetest.di.component;
 
 import com.josalvdel1.randomusercodetest.di.module.ActivityModule;
 import com.josalvdel1.randomusercodetest.di.scope.ActivityScope;
-import com.josalvdel1.randomusercodetest.presentation.ui.module.users.UserListActivity;
+import com.josalvdel1.randomusercodetest.presentation.ui.module.userdetail.UserDetailActivity;
+import com.josalvdel1.randomusercodetest.presentation.ui.module.userlist.UserListActivity;
 
 import dagger.Subcomponent;
 
@@ -15,4 +16,6 @@ import dagger.Subcomponent;
 public interface ActivityComponent {
 
     void inject(UserListActivity activity);
+
+    void inject(UserDetailActivity activity);
 }

@@ -7,7 +7,8 @@ import com.josalvdel1.randomusercodetest.di.module.DomainModule;
 import com.josalvdel1.randomusercodetest.di.module.ExecutorModule;
 import com.josalvdel1.randomusercodetest.di.module.UIModule;
 import com.josalvdel1.randomusercodetest.presentation.ui.BaseActivity;
-import com.josalvdel1.randomusercodetest.presentation.ui.module.users.UserListViewModel;
+import com.josalvdel1.randomusercodetest.presentation.ui.module.userdetail.UserDetailViewModel;
+import com.josalvdel1.randomusercodetest.presentation.ui.module.userlist.UserListViewModel;
 
 import javax.inject.Singleton;
 
@@ -32,4 +33,6 @@ public interface AppComponent {
 
     //ViewModels
     void inject(UserListViewModel viewModel);
+
+    void inject(UserDetailViewModel viewModel);
 }

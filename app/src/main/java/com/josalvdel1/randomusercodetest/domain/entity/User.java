@@ -9,15 +9,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Date;
 
-import static com.josalvdel1.randomusercodetest.domain.entity.User.GENDER.FEMALE;
-import static com.josalvdel1.randomusercodetest.domain.entity.User.GENDER.MALE;
+import static com.josalvdel1.randomusercodetest.domain.entity.User.Gender.FEMALE;
+import static com.josalvdel1.randomusercodetest.domain.entity.User.Gender.MALE;
 
 @Entity(tableName = "users")
 public class User {
 
     @PrimaryKey
     private String id;
-    @GENDER
+    @Gender
     private String gender;
     private String firstName;
     private String lastName;
@@ -73,6 +73,10 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public String getCity() {
@@ -165,13 +169,32 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        return id.equals(user.getId());
+
+        return id.equals(user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({MALE, FEMALE})
-    public @interface GENDER {
+    public @interface Gender {
         String MALE = "Male";
         String FEMALE = "Female";
     }

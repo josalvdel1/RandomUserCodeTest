@@ -32,4 +32,8 @@ public class UserDbDataSource {
         user.setBlackListed(true);
         userDao.updateUser(user);
     }
+
+    public User getUser(@NonNull String userId) {
+        return userDao.getUser(userId);
+    }
 }

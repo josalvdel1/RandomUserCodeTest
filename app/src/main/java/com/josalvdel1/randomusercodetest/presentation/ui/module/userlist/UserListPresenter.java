@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.users;
+package com.josalvdel1.randomusercodetest.presentation.ui.module.userlist;
 
 import android.support.annotation.NonNull;
 
@@ -92,7 +92,8 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         }, user);
     }
 
-    public void onUserClicked(User user) {
+    public void onUserClicked(String userId) {
+        getView().navigateToDetail(userId);
     }
 
     public void onDeleteUserForeverClicked(User user) {
@@ -111,5 +112,7 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         void showEmptyView();
 
         void showGenericError();
+
+        void navigateToDetail(String userId);
     }
 }

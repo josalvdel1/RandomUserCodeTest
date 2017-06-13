@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.users;
+package com.josalvdel1.randomusercodetest.presentation.ui.module.userlist;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -16,6 +16,7 @@ import com.josalvdel1.randomusercodetest.R;
 import com.josalvdel1.randomusercodetest.di.module.ActivityModule;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 import com.josalvdel1.randomusercodetest.presentation.ui.BaseActivity;
+import com.josalvdel1.randomusercodetest.presentation.ui.module.userdetail.UserDetailActivity;
 
 import java.util.List;
 
@@ -102,6 +103,11 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
 
     public void showUsers(List<User> users) {
         userListAdapter.addAll(users);
+    }
+
+    @Override
+    public void navigateToDetail(String userId) {
+        startActivity(UserDetailActivity.getIntent(this, userId));
     }
 
     @OnClick(R.id.fab_load_more)

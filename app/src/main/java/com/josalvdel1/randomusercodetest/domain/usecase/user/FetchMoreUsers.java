@@ -29,9 +29,9 @@ public class FetchMoreUsers extends UseCase<List<User>> {
             Integer count = (Integer) params[0];
 
             //40 items by default
-            List<User> promoCodes = userRepository.fetchMoreUsers(count != null ? count : 40);
+            List<User> users = userRepository.fetchMoreUsers(count != null ? count : 40);
 
-            notifySuccess(promoCodes, callback);
+            notifySuccess(users, callback);
         } catch (Exception e) {
             notifyError(e, callback);
             LogUtils.logE("GetUsers", e.getMessage());
