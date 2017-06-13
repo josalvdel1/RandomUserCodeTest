@@ -1,5 +1,6 @@
 package com.josalvdel1.randomusercodetest.presentation.ui.module.userlist;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 
 import com.josalvdel1.randomusercodetest.di.scope.ActivityScope;
@@ -19,12 +20,15 @@ import javax.inject.Inject;
 public class UserListPresenter extends Presenter<UserListPresenter.View> {
 
     public static final int NEW_USERS_COUNT = 20;
+    public static final int USER_SEARCH_INPUT_DELAY = 1000;
 
     private UserListViewModel viewModel;
     private FetchMoreUsers fetchMoreUsers;
     private GetOldUsers getOldUsers;
     private DeleteUserForever deleteUserForever;
     private GetUsersBySearch getUsersBySearch;
+    private final Handler handler;
+    private Runnable performSearchRunnable;
 
     @Inject
     public UserListPresenter(FetchMoreUsers fetchMoreUsers, GetOldUsers getOldUsers,
@@ -34,6 +38,7 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         this.getOldUsers = getOldUsers;
         this.deleteUserForever = deleteUserForever;
         this.getUsersBySearch = getUsersBySearch;
+        handler = new Handler();
     }
 
     public void init(UserListViewModel viewModel, boolean activityJustCreated) {
@@ -114,8 +119,16 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
     }
 
     public void onQueryChange(String query) {
-        getUsersBySearch(query);
-        viewModel.setSearchTerm(query);
+        if (performSearchRunnable != null) {
+            handler.removeCallbacks(performSearchRunnable);
+        }
+
+        performSearchRunnable = () -> {
+            getUsersBySearch(query);
+            viewModel.setSearchTerm(query);
+        };
+
+        handler.postDelayed(performSearchRunnable, USER_SEARCH_INPUT_DELAY);
     }
 
     public void getUsersBySearch(String search) {
