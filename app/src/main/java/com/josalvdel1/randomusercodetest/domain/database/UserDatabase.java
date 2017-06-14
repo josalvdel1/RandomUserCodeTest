@@ -7,7 +7,7 @@ import android.arch.persistence.room.TypeConverters;
 import com.josalvdel1.randomusercodetest.domain.converter.DateConverter;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class UserDatabase extends RoomDatabase {
 
