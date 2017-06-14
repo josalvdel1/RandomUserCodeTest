@@ -119,6 +119,8 @@ dependencies {
     androidTestCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
     androidTestCompile "com.android.support.test.espresso:espresso-intents:$espressoVersion"
     androidTestCompile "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
+
+    androidTestCompile "org.mockito:mockito-core:$mockitoVersion"
 }
 
 configurations.all {

@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.userlist;
+package com.josalvdel1.randomusercodetest.ui.module.userlist;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -19,8 +19,8 @@ import com.josalvdel1.randomusercodetest.MyApplication;
 import com.josalvdel1.randomusercodetest.R;
 import com.josalvdel1.randomusercodetest.di.module.ActivityModule;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
-import com.josalvdel1.randomusercodetest.presentation.ui.BaseActivity;
-import com.josalvdel1.randomusercodetest.presentation.ui.module.userdetail.UserDetailActivity;
+import com.josalvdel1.randomusercodetest.ui.BaseActivity;
+import com.josalvdel1.randomusercodetest.ui.module.userdetail.UserDetailActivity;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.userdetail;
+package com.josalvdel1.randomusercodetest.ui.module.userdetail;
 
 import com.josalvdel1.randomusercodetest.di.scope.ActivityScope;
 import com.josalvdel1.randomusercodetest.domain.entity.User;
 import com.josalvdel1.randomusercodetest.domain.usecase.UseCase;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.GetUser;
-import com.josalvdel1.randomusercodetest.presentation.ui.Presenter;
+import com.josalvdel1.randomusercodetest.ui.Presenter;
 
 import javax.inject.Inject;
 

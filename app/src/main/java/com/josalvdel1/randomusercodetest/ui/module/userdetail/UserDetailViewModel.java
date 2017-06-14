@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.userdetail;
+package com.josalvdel1.randomusercodetest.ui.module.userdetail;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

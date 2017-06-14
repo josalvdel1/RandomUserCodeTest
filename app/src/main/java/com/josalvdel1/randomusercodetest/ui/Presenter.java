@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui;
+package com.josalvdel1.randomusercodetest.ui;
 
 import android.support.annotation.CallSuper;
 

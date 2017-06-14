@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.userlist;
+package com.josalvdel1.randomusercodetest.ui.module.userlist;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import com.josalvdel1.randomusercodetest.domain.usecase.user.DeleteUserForever;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.FetchMoreUsers;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.GetOldUsers;
 import com.josalvdel1.randomusercodetest.domain.usecase.user.GetUsersBySearch;
-import com.josalvdel1.randomusercodetest.presentation.ui.Presenter;
+import com.josalvdel1.randomusercodetest.ui.Presenter;
 
 import java.util.List;
 

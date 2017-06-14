@@ -1,4 +1,4 @@
-package com.josalvdel1.randomusercodetest.presentation.ui.module.userlist;
+package com.josalvdel1.randomusercodetest.ui.module.userlist;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

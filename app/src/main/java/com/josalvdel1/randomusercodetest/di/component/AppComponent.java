@@ -6,9 +6,9 @@ import com.josalvdel1.randomusercodetest.di.module.AppModule;
 import com.josalvdel1.randomusercodetest.di.module.DomainModule;
 import com.josalvdel1.randomusercodetest.di.module.ExecutorModule;
 import com.josalvdel1.randomusercodetest.di.module.UIModule;
-import com.josalvdel1.randomusercodetest.presentation.ui.BaseActivity;
-import com.josalvdel1.randomusercodetest.presentation.ui.module.userdetail.UserDetailViewModel;
-import com.josalvdel1.randomusercodetest.presentation.ui.module.userlist.UserListViewModel;
+import com.josalvdel1.randomusercodetest.ui.BaseActivity;
+import com.josalvdel1.randomusercodetest.ui.module.userdetail.UserDetailViewModel;
+import com.josalvdel1.randomusercodetest.ui.module.userlist.UserListViewModel;
 
 import javax.inject.Singleton;
 
