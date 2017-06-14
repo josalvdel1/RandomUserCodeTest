@@ -14,6 +14,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.josalvdel1.randomusercodetest.MyApplication;
 import com.josalvdel1.randomusercodetest.R;
@@ -156,10 +157,12 @@ public class UserListActivity extends BaseActivity implements UserListPresenter.
 
     @Override
     public void showEmptyView() {
+        //// TODO: 14/6/17 emptyView.visibility -> VISIBLE; rvUsers.visibility -> GONE
     }
 
     @Override
-    public void showGenericError() {
+    public void showError() {
+        Toast.makeText(this, getString(R.string.error_generic), Toast.LENGTH_SHORT).show();
     }
 
     public static Intent getIntent(Context context) {

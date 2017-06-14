@@ -54,15 +54,16 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         getOldUsers.execute(new UseCase.Callback<List<User>>() {
             @Override
             public void onSuccess(List<User> result) {
-                hideLoading();
-                viewModel.setLoading(false);
-                viewModel.updateUserList(result);
+                stopLoading();
+                showUsers(result);
             }
 
             @Override
             public void onError(Throwable error) {
-                viewModel.setLoading(false);
-                hideLoading();
+                stopLoading();
+                if (getView() != null) {
+                    getView().showError();
+                }
             }
         });
     }
@@ -73,21 +74,15 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         fetchMoreUsers.execute(new UseCase.Callback<List<User>>() {
             @Override
             public void onSuccess(List<User> result) {
-                viewModel.setLoading(false);
-                hideLoading();
-                if (result.size() > 0) {
-                    viewModel.updateUserList(result);
-                } else {
-                    getView().showEmptyView();
-                }
+                stopLoading();
+                showUsers(result);
             }
 
             @Override
             public void onError(Throwable error) {
-                viewModel.setLoading(false);
-                hideLoading();
+                stopLoading();
                 if (getView() != null) {
-                    getView().showGenericError();
+                    getView().showError();
                 }
             }
         }, NEW_USERS_COUNT);
@@ -98,7 +93,7 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
             @Override
             public void onSuccess(List<User> result) {
                 if (!viewModel.isSearching()) {
-                    viewModel.updateUserList(result);
+                    showUsers(result);
                 } else {
                     getUsersBySearch(viewModel.getSearchTerm());
                 }
@@ -106,6 +101,10 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
 
             @Override
             public void onError(Throwable error) {
+                stopLoading();
+                if (getView() != null) {
+                    getView().showError();
+                }
             }
         }, user);
     }
@@ -136,15 +135,31 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
         getUsersBySearch.execute(new UseCase.Callback<List<User>>() {
             @Override
             public void onSuccess(List<User> result) {
-                hideLoading();
+                stopLoading();
                 viewModel.updateUserList(result);
             }
 
             @Override
             public void onError(Throwable error) {
-                hideLoading();
+                stopLoading();
+                if (getView() != null) {
+                    getView().showError();
+                }
             }
         }, search);
+    }
+
+    private void showUsers(List<User> result) {
+        if (result.size() > 0) {
+            viewModel.updateUserList(result);
+        } else if (getView() != null) {
+            getView().showEmptyView();
+        }
+    }
+
+    private void stopLoading() {
+        viewModel.setLoading(false);
+        hideLoading();
     }
 
     public void onLoadMoreClicked() {
@@ -160,7 +175,7 @@ public class UserListPresenter extends Presenter<UserListPresenter.View> {
 
         void showEmptyView();
 
-        void showGenericError();
+        void showError();
 
         void navigateToDetail(String userId);
     }
