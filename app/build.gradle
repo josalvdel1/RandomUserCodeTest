@@ -13,13 +13,13 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_URL", '""'
     }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            buildConfigField "String", "API_URL", '"http://api.randomuser.me"'
         }
 
         debug {
@@ -95,10 +95,6 @@ dependencies {
     apt "android.arch.persistence.room:compiler:$archVersion"
     apt "android.arch.lifecycle:compiler:$archVersion"
 
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-
     compile "com.google.code.gson:gson:$gsonVersion"
     compile "com.google.dagger:dagger:$daggerVersion"
     apt "com.google.dagger:dagger-compiler:$daggerVersion"
@@ -119,10 +115,10 @@ dependencies {
     testCompile "com.squareup.okhttp3:mockwebserver:$mockwebserverVersion"
     testCompile "commons-io:commons-io:$commonsVersion"
 
-    androidTestCompile("com.android.support.test:runner:$runnerVersion")
-    androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion")
-    androidTestCompile("com.android.support.test.espresso:espresso-intents:$espressoVersion")
-    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espressoVersion")
+    androidTestCompile "com.android.support.test:runner:$runnerVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
 }
 
 configurations.all {
